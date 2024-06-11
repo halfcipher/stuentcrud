@@ -1,0 +1,21 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- script: |
+   pip install flake8
+   flake8 --version
+   flake8 app.py
+  displayName: 'Command Line Script'
+  continueOnError: true
+
+- task: Docker@2
+  displayName: buildAndPush
+  inputs:
+    containerRegistry: 'shubham-docker'
+    repository: 'shubs3497/studentcrud '
+    command: 'buildAndPush'
+    tags: 1.3
